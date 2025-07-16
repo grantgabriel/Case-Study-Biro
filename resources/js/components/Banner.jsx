@@ -3,7 +3,7 @@ import bannerImage from '../assets/banner-detail-berita.png';
 function Banner() {
     return (
         <>
-            <div className="flex md:flex-row flex-col md:justify-start md:items-center gap-8 lg:gap-16 bg-background-gray-usu p-8 lg:p-16 w-full md:h-[261px] lg:h-[469px] xl:h-[526px] font-sans text-text-gray-usu">
+            <div className="flex md:flex-row flex-col md:justify-start md:items-center gap-8 lg:gap-16 bg-background-gray-usu p-8 lg:px-[97px] lg:py-16 w-full md:h-[261px] lg:h-[469px] xl:h-[526px] font-sans text-text-gray-usu">
                 <div className='md:w-1/2'>
                     <h1 className="pb-4 font-semibold text-[20px] text-hijau-usu lg:text-[32px]">USU's Effort to Encourage Student Digital Literacy by Cooperate with PT. Gojek</h1>
                     <div className="flex flex-row">

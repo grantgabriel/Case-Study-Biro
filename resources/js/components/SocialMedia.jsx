@@ -5,7 +5,7 @@ import instagram from '../assets/social-media/instagram.png';
 
 function SocialMedia() {
     return (
-        <div className="flex justify-center items-start px-8 md:px-16">
+        <div className="flex justify-center items-start md:mt-2 px-8 md:px-4 md:pl-[42px]">
             <div className="flex md:flex-col justify-between items-center p-8 w-[152px] md:w-[80px] md:h-[170px]">
                 <div className=''>
                     <img className="w-[14px] lg:w-[16px]" src={share} alt="share" />
