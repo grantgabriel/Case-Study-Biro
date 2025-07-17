@@ -108,14 +108,3 @@ function SearchNews() {
 }
 
 export default SearchNews;
-
-                    // <div className="flex justify-start items-center gap-[10px] bg-[#39A9354D] p-2 rounded w-[64px] lg:w-[69px] h-[32px] text">
-                    //     <div className="flex justify-between items-center gap-[2px] w-full">
-                    //         <div className="font-medium text-[12px] text-hijau-usu lg:text-[14px]">
-                    //             2025
-                    //         </div>
-                    //         <div className="font-medium text-[12px] text-hijau-usu">
-                    //             {/* Tanda panah dan dropdown */}
-                    //         </div>
-                    //     </div>
-                    // </div>

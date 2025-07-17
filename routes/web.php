@@ -20,3 +20,7 @@ Route::get('/activities/detail-berita', function () {
 Route::get('/activities/berita', function () {
     return view('activities/berita');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
