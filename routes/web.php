@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/activities/detail-berita', function () {
     return view('activities/detail_berita');
 });
+
+Route::get('/activities/berita', function () {
+    return view('activities/berita');
+});

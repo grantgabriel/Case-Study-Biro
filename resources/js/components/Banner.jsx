@@ -1,34 +1,31 @@
-import bannerImage from '../assets/banner-detail-berita.png';
+import bannerBerita from '../assets/banner-berita.png';
 
-function Banner() {
+const Banner = () => {
     return (
-        <>
-            <div className="flex md:flex-row flex-col md:justify-start md:items-center gap-8 lg:gap-16 bg-background-gray-usu p-8 lg:px-[97px] lg:py-16 w-full md:h-[261px] lg:h-[469px] xl:h-[526px] font-sans text-text-gray-usu">
-                <div className='md:w-1/2'>
-                    <h1 className="pb-4 font-semibold text-[20px] text-hijau-usu lg:text-[32px]">USU's Effort to Encourage Student Digital Literacy by Cooperate with PT. Gojek</h1>
-                    <div className="flex flex-row">
-                        <div className="pr-6">
-                            <p className="pb-1 text-[6px] lg:text-[8px]">Dipublish Pada</p>
-                            <p className="font-semibold text-[8px] lg:text-[10px]">Selasa, 31 Februari 2024</p>
-                        </div>
-                        <div>
-                            <p className="pb-1 text-[6px] lg:text-[8px]">Dipublish Oleh</p>
-                            <p className="font-semibold text-[8px] lg:text-[10px]">Lorem Ipsum Dolor Sit</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='flex flex-col justify-center items-start w-auto md:w-1/2 h-full'>
-                    <div className='flex justify-start items-start w-full'>
-                        <img src={bannerImage} alt="USU with Gojek" className='w-full h-full object-contain' />
-                    </div>
-                    <div>
-                        <p className="self-start mt-2 text-[6px] lg:text-[8px]">Foto Bersama Lorem Ipsum Dolor Sit Amer</p>
-                    </div>
-                </div>
+        <div className="relative w-full h-[128px] md:h-[150px] lg:h-[250px] overflow-hidden">
+            <img
+                src={bannerBerita}
+                alt="Banner Berita"
+                className="right-0 absolute w-1/2 h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(89.93deg,#0B6839_15.94%,#038A47_34.45%,#39A935_50.77%,rgba(161,197,23,0)_72.6%)]"></div>
 
+            <div className="z-10 relative flex flex-col justify-center items-start px-8 lg:px-16 xl:pl-[224px] w-1/2 h-full">
+                <div id="breadcrumbs" className="top-2 lg:top-4 right-8 lg:right-16 left-8 lg:left-16 xl:left-[224px] absolute">
+                    <nav className="flex flex-nowrap justify-start items-start space-x-1 py-2 w-full font-sans font-semibold text-[8px] text-white lg:text-[12px] leading-[15px]">
+                        <span>🏠</span>
+                        <span>&gt;</span>
+                        <a href="#" className="hover:underline whitespace-nowrap">Activities</a>
+                        <span>&gt;</span>
+                        <a href="#" className="hover:underline whitespace-nowrap">Berita SDGs</a>
+                    </nav>
+                </div>
+                <h1 className='font-bold text-[16px] text-white md:text-[24px] lg:text-[48px] leading-1'>
+                    Berita SDGs
+                </h1>
             </div>
-        </>
+        </div>
     );
-}
+};
 
 export default Banner;
