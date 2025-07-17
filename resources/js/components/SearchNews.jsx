@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+
 const SearchIcon = () => (
     <svg
         className="w-5 h-5 text-hijau-usu"
@@ -16,6 +19,17 @@ const SearchIcon = () => (
 );
 
 function SearchNews() {
+    const [selectedYear, setSelectedYear] = useState('2025');
+    const [isOpen, setIsOpen] = useState(false);
+
+    const years = ['2025', '2024', '2023'];
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+    const selectYear = (year) => {
+        setSelectedYear(year);
+        setIsOpen(false);
+    };
+
     return (
         <div className="flex justify-center items-center py-8 h-[32px]">
             <form action="" className="flex justify-center md:justify-between items-center w-full">
@@ -23,13 +37,48 @@ function SearchNews() {
                     <div className="font-medium text-[12px] lg:text-[14px] leading-none lg:leading-[25.6px]">
                         Tahun Rilis
                     </div>
-                    <div>
-                        {/* Membuat dropdown tahun rilis (2025, 2024, 2023) */}
-
+                    {/* Membuat dropdown tahun rilis (2025, 2024, 2023) */}
+                    <div className="hidden md:block relative">
+                        <div
+                            onClick={toggleDropdown}
+                            className="flex justify-between items-center gap-[2px] bg-[#39A9354D] p-2 rounded w-[64px] lg:w-[69px] h-[32px] cursor-pointer"
+                        >
+                            <div className="font-medium text-[#038A47] text-[12px] lg:text-[14px]">
+                                {selectedYear}
+                            </div>
+                            <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M6 9L12 15L18 9"
+                                    stroke="#038A47"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </div>
+                        {isOpen && (
+                            <div className="z-10 absolute bg-white shadow mt-1 border border-gray-300 rounded w-[64px] lg:w-[69px]">
+                                {years.map((year) => (
+                                    <div
+                                        key={year}
+                                        onClick={() => selectYear(year)}
+                                        className="hover:bg-[#39A9351A] px-2 py-1 text-[#038A47] text-[12px] lg:text-[14px] cursor-pointer"
+                                    >
+                                        {year}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div className="flex justify-between items-center gap-2 lg:gap-4 w-[300px] lg:w-[422px] xl:w-[517px] h-full">
+                <div className="flex justify-between items-center gap-2 lg:gap-4 w-full md:w-[300px] lg:w-[422px] xl:w-[517px] h-full">
                     <div className="flex flex-row w-full h-full">
                         <div className="relative w-full h-[32px] font-sans font-bold text-[8px] text-hitam-usu lg:text-[10px] leading-[15px]">
                             <div className="left-0 absolute inset-y-0 flex items-center pl-3 pointer-events-none">
@@ -59,3 +108,14 @@ function SearchNews() {
 }
 
 export default SearchNews;
+
+                    // <div className="flex justify-start items-center gap-[10px] bg-[#39A9354D] p-2 rounded w-[64px] lg:w-[69px] h-[32px] text">
+                    //     <div className="flex justify-between items-center gap-[2px] w-full">
+                    //         <div className="font-medium text-[12px] text-hijau-usu lg:text-[14px]">
+                    //             2025
+                    //         </div>
+                    //         <div className="font-medium text-[12px] text-hijau-usu">
+                    //             {/* Tanda panah dan dropdown */}
+                    //         </div>
+                    //     </div>
+                    // </div>
