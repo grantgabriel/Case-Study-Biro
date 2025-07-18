@@ -2,7 +2,27 @@ import SocialMedia from './SocialMedia';
 import demonstrasi from '../assets/demonstrasi-detail-berita.png';
 import NewsTag from './NewsTag';
 
-function Content() {
+const categories = {
+    "TPB01": "TPB01 Tanpa Kemiskinan",
+    "TPB02": "TPB02 Tanpa Kelaparan",
+    "TPB03": "TPB03 Kehidupan Sehat dan Sejahtera",
+    "TPB04": "TPB04 Pendidikan Berkualitas",
+    "TPB05": "TPB05 Kesetaraan Gender",
+    "TPB06": "TPB06 Air Bersih dan Sanitasi Layak",
+    "TPB07": "TPB07 Energi Bersih dan Terjangkau",
+    "TPB08": "TPB08 Pekerjaan Layak dan Pertumbuhan Ekonomi",
+    "TPB09": "TPB09 Industri, Inovasi, dan Infrastruktur",
+    "TPB10": "TPB10 Berkurangnya Kesenjangan",
+    "TPB11": "TPB11 Kota dan Pemukiman yang Berkelanjutan",
+    "TPB12": "TPB12 Konsumsi dan Produksi yang Bertanggung Jawab",
+    "TPB13": "TPB13 Penanganan Perubahan Iklim",
+    "TPB14": "TPB14 Ekosistem Lautan",
+    "TPB15": "TPB15 Ekosistem Daratan",
+    "TPB16": "TPB16 Perdamaian, Keadilan, dan Kelembagaan yang Tangguh",
+    "TPB17": "TPB17 Kemitraan untuk Mencapai Tujuan"
+};
+
+function Content({ article, tag }) {
     return (
         <div className="flex md:flex-row flex-col justify-center">
             <SocialMedia />
@@ -45,7 +65,7 @@ function Content() {
                     </p>
                 </div>
                 <div className='px-8 py-2 w-full font-normal text-[6px] text-text-gray-usu lg:text-[8px]'>
-                    <img src={demonstrasi} alt="Demonstrasi foto lorem ipsum" className='w-full h-full object-contain'/>
+                    <img src={demonstrasi} alt="Demonstrasi foto lorem ipsum" className='w-full h-full object-contain' />
                     <p className='py-2'>
                         Demonstrasi foto lorem ipsum
                     </p>
@@ -75,7 +95,12 @@ function Content() {
                         Sed in felis neque massa. Elit sit dis augue nunc turpis gravida purus metus quis. In est duis placerat metus a nisl laoreet ac. Lectus in viverra est id malesuada fringilla leo. Cursus mollis nulla tincidunt varius. Euismod tincidunt ut in elementum feugiat. Purus mi sagittis id ipsum pharetra. In gravida volutpat ornare gravida vel dignissim lobortis quis. Scelerisque quam eget a faucibus cras. Nunc et eget tempor id cursus.
                     </p>
                 </div>
-                <NewsTag label="TPB Pendidikan Berkualitas"/>
+                <div className='flex flex-wrap gap-1'>
+                    {Array.isArray(tag) && tag.map((t, index) => {
+                        const label = categories[t] || t;
+                        return <NewsTag key={index} label={label} />;
+                    })}
+                </div>
             </div>
             <div className='px-8 md:px-16'>
 

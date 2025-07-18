@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticlesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/activities/detail-berita', function () {
-    return view('activities/detail_berita');
-});
+// Route untuk menampilkan laman beritax
+Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('berita');
 
-Route::get('/activities/berita', function () {
-    return view('activities/berita');
-});
+// Route untuk menampilkan laman detail berita
+Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'detail'])->name('detail-berita');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
