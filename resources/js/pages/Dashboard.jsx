@@ -6,6 +6,8 @@ function Dashboard() {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
+        console.log("testing", window.articlesData)
+
         if (window.articlesData) {
             setArticles(window.articlesData);
         }
@@ -18,7 +20,7 @@ function Dashboard() {
             />
             <NewsList
                 data={articles}
-                toggleCategories="off"
+                dashboard="on"
             />
         </>
     );

@@ -18,7 +18,21 @@ const SearchIcon = () => (
     </svg>
 );
 
-function SearchNews() {
+const AddBerita = () => {
+    return (
+        <div className="flex items-center w-auto">
+            <a
+                href="/dashboard/action/add-berita/"
+                className="flex justify-center items-center bg-hijau-usu hover:bg-green-600 px-4 py-2 rounded w-[81px] h-[32px] font-bold text-[8px] text-white lg:text-[10px] text-center leading-[15px]"
+            >
+                ADD BERITA
+            </a>
+        </div>
+    );
+
+}
+
+function SearchNews({ toggle }) {
     const [selectedYear, setSelectedYear] = useState('2025');
     const [isOpen, setIsOpen] = useState(false);
 
@@ -37,7 +51,6 @@ function SearchNews() {
                     <div className="font-medium text-[12px] lg:text-[14px] leading-none lg:leading-[25.6px]">
                         Tahun Rilis
                     </div>
-                    {/* Membuat dropdown tahun rilis (2025, 2024, 2023) */}
                     <div className="hidden md:block relative">
                         <div
                             onClick={toggleDropdown}
@@ -101,6 +114,11 @@ function SearchNews() {
                             CARI
                         </button>
                     </div>
+                    {
+                        toggle === "on" && (
+                            <AddBerita />
+                        )
+                    }
                 </div>
             </form>
         </div>

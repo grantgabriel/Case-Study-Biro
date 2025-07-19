@@ -23,20 +23,27 @@ const categories = {
     "TPB17": "TPB17 Kemitraan untuk Mencapai Tujuan"
 };
 
-function NewsList({ data, toggleCategories }) {
+function NewsList({ data, dashboard }) {
     const mainContentClass = `
         flex flex-col gap-2 md:pr-8 lg:pr-16
-        ${toggleCategories === "off"
+        ${dashboard === "on"
             ? "w-full"
             : "w-full md:w-[70%] lg:w-3/4 xl:w-4/5"
         }
     `;
 
+    const actionButtons = `
+        flex flex-col gap-2 justify-around items-center h-full
+        ${dashboard === "on"
+            ? ""
+            : "hidden"
+        }
+    `;
 
     return (
         <div className="flex px-8 lg:px-16 2xl:px-[224px] py-2">
             <div className={mainContentClass}>
-                <SearchNews />
+                <SearchNews toggle={dashboard} />
                 {data.map((article, index) => (
                     <div className="flex justify-between items-start gap-4 lg:gap-8 lg:bg-background-gray-usu px-2 py-4 rounded-2xl">
                         <div className='relative flex flex-shrink-0 items-center'>
@@ -69,12 +76,20 @@ function NewsList({ data, toggleCategories }) {
                                 </p>
                             </div>
                         </div>
+                        <div className={actionButtons}>
+                            <a href={`/dashboard/action/delete-berita/${article.id}`} className="flex justify-center items-center gap-1 bg-red-600 hover:bg-red-700 px-2 py-1 rounded font-medium text-[10px] text-white lg:text-[14px] text-center transition-all">
+                                🗑️ Delete
+                            </a>
+                            <a href={`/dashboard/action/edit-berita/${article.id}`} className="flex justify-center items-center gap-1 bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded font-medium text-[10px] text-white lg:text-[14px] text-center transition-all">
+                                ✏️ Edit
+                            </a>
+                        </div>
                     </div>
                 ))}
                 <Pagination />
             </div>
             {
-                toggleCategories !== "off" && (
+                dashboard !== "on" && (
                     <Categories />
                 )
             }

@@ -14,6 +14,9 @@ use App\Http\Controllers\ArticlesController;
 |
 */
 
+// Redirect agar langsung ke login yess
+Route::redirect('/', '/login');
+
 // Route untuk menampilkan laman beritax
 Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('berita');
 
@@ -21,6 +24,7 @@ Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('b
 Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'detail'])->name('detail-berita');
 
 // Route dashboard buat add, edit & delete berita
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [ArticlesController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard/action/add-berita/', [ArticlesController::class, 'addBerita'])->name('add-berita');
+Route::get('/dashboard/action/delete-berita/{id}', [ArticlesController::class, 'deleteBerita'])->name('delete-berita');
+Route::get('/dashboard/action/edit-berita/{id}', [ArticlesController::class, 'editBerita'])->name('edit-berita');
