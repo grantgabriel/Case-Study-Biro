@@ -95,6 +95,10 @@ function Content({ article, tag }) {
                         Sed in felis neque massa. Elit sit dis augue nunc turpis gravida purus metus quis. In est duis placerat metus a nisl laoreet ac. Lectus in viverra est id malesuada fringilla leo. Cursus mollis nulla tincidunt varius. Euismod tincidunt ut in elementum feugiat. Purus mi sagittis id ipsum pharetra. In gravida volutpat ornare gravida vel dignissim lobortis quis. Scelerisque quam eget a faucibus cras. Nunc et eget tempor id cursus.
                     </p>
                 </div>
+                <div className='mt-4 px-8'>
+                    <div className='border-[#FAFAFA] border-[2px]'>
+                    </div>
+                </div>
                 <div className='flex flex-wrap gap-1'>
                     {Array.isArray(tag) && tag.map((t, index) => {
                         const label = categories[t] || t;

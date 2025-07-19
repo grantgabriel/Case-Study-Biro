@@ -2,8 +2,6 @@ import ShortNewsTag from './ShortNewsTag';
 import Pagination from './Pagination';
 import SearchNews from './SearchNews';
 import Categories from './Categories';
-import berita1 from '../assets/berita-satu.png';
-import berita2 from '../assets/berita-dua.png';
 
 const categories = {
     "TPB01": "TPB01 Tanpa Kemiskinan",
@@ -25,14 +23,20 @@ const categories = {
     "TPB17": "TPB17 Kemitraan untuk Mencapai Tujuan"
 };
 
-function NewsList({ data }) {
-    console.log(data)
+function NewsList({ data, toggleCategories }) {
+    const mainContentClass = `
+        flex flex-col gap-2 md:pr-8 lg:pr-16
+        ${toggleCategories === "off"
+            ? "w-full"
+            : "w-full md:w-[70%] lg:w-3/4 xl:w-4/5"
+        }
+    `;
+
 
     return (
         <div className="flex px-8 lg:px-16 2xl:px-[224px] py-2">
-            <div className="flex flex-col gap-2 md:pr-8 lg:pr-16 w-full md:w-[70%] lg:w-3/4 xl:w-4/5">
+            <div className={mainContentClass}>
                 <SearchNews />
-                {/* Contoh Berita */}
                 {data.map((article, index) => (
                     <div className="flex justify-between items-start gap-4 lg:gap-8 lg:bg-background-gray-usu px-2 py-4 rounded-2xl">
                         <div className='relative flex flex-shrink-0 items-center'>
@@ -42,7 +46,6 @@ function NewsList({ data }) {
                                 className="rounded-lg w-[133px] lg:w-[194px] h-[100px] lg:h-[145px] object-cover"
                             />
                         </div>
-
                         <div className='flex flex-col justify-start gap-1 w-full h-full'>
                             <div className='flex gap-1'>
                                 {Array.isArray(article.tags) && article.tags.map((t, index) => {
@@ -70,7 +73,11 @@ function NewsList({ data }) {
                 ))}
                 <Pagination />
             </div>
-            <Categories />
+            {
+                toggleCategories !== "off" && (
+                    <Categories />
+                )
+            }
         </div>
     );
 }

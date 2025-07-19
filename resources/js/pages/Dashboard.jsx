@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Banner from '../components/Banner';
 import NewsList from '../components/NewsList';
 
-function Berita() {
+function Dashboard() {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
@@ -14,11 +14,14 @@ function Berita() {
     return (
         <>
             <Banner
-                title="Berita SDGs"
+                title="Dashboard Berita SDGs"
             />
-            <NewsList data={articles} />
+            <NewsList
+                data={articles}
+                toggleCategories="off"
+            />
         </>
     );
 }
 
-export default Berita;
+export default Dashboard;

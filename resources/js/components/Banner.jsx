@@ -1,6 +1,6 @@
 import bannerBerita from '../assets/banner-berita.png';
 
-const Banner = () => {
+const Banner = ( { title } ) => {
     return (
         <div className="relative w-full h-[128px] md:h-[150px] lg:h-[250px] overflow-hidden">
             <img
@@ -21,7 +21,7 @@ const Banner = () => {
                     </nav>
                 </div>
                 <h1 className='font-bold text-[16px] text-white md:text-[24px] lg:text-[48px] leading-1'>
-                    Berita SDGs
+                    {title}
                 </h1>
             </div>
         </div>

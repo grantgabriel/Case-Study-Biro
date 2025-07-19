@@ -20,6 +20,7 @@ Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('b
 // Route untuk menampilkan laman detail berita
 Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'detail'])->name('detail-berita');
 
+// Route dashboard buat add, edit & delete berita
 Route::get('/dashboard', function () {
     return view('dashboard');
 });

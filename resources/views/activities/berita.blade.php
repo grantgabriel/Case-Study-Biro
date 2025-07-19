@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Berita SDGs | Universitas Sumatera Utara</title>
+        <link rel="icon" href="/assets/images/logo-usu.png">
         <script>
             window.articlesData = @json($articles);
         </script>
