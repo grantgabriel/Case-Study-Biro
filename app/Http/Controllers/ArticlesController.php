@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\Models\Article;
 use Carbon\Carbon;
 
@@ -51,8 +52,39 @@ class ArticlesController extends Controller
     }
 
     public function addBerita() {
-
         return view('add_berita');
+    }
+
+    public function storeBerita(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'thumbnail' => 'nullable|image',
+            'thumbnail_caption' => 'nullable|string',
+            'publisher' => 'required|string',
+            'artikel' => 'required|string',
+            'tag' => 'nullable|string',
+        ]);
+
+        $thumbnailPath = null;
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = 'banner-' . Str::slug($request->title) . '.' . $file->getClientOriginalExtension();
+            $thumbnailPath = '/assets/images/thumbnail/' . $filename;
+            $file->move(public_path('assets/images/thumbnail'), $filename);
+        }
+
+        \App\Models\Article::create([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'publisher' => $request->publisher,
+            'thumbnail' => $thumbnailPath,
+            'thumbnail_caption' => $request->thumbnail_caption,
+            'article' => $request->artikel,
+            'tag' => json_encode(explode(',', $request->tag)), // jika input tag pakai koma
+        ]);
+
+        return response()->json(['message' => 'Berita berhasil disimpan.'], 200);
     }
 
     public function deleteBerita($id) {
@@ -69,5 +101,11 @@ class ArticlesController extends Controller
         $article->delete();
 
         return redirect()->route('dashboard')->with('success', 'Berita berhasil dihapus.');
+    }
+
+    public function editBerita( $id ) {
+        $article = Article::find($id);
+
+        return view('edit_berita', compact('article'));
     }
 }

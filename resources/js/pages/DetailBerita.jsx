@@ -9,7 +9,7 @@ function DetailBerita() {
 
     return (
         <>
-            <Breadcrumbs />
+            <Breadcrumbs title={article.title}/>
             <NewsHeader
                 title={article.title}
                 publisher={article.publisher}

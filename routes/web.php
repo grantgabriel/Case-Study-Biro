@@ -26,5 +26,7 @@ Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'deta
 // Route dashboard buat add, edit & delete berita
 Route::get('/dashboard', [ArticlesController::class, 'dashboard'])->name('dashboard');
 Route::get('/dashboard/action/add-berita/', [ArticlesController::class, 'addBerita'])->name('add-berita');
+Route::post('/dashboard/action/add-berita/store', [ArticlesController::class, 'storeBerita'])->name('store-berita');
 Route::get('/dashboard/action/delete-berita/{id}', [ArticlesController::class, 'deleteBerita'])->name('delete-berita');
 Route::get('/dashboard/action/edit-berita/{id}', [ArticlesController::class, 'editBerita'])->name('edit-berita');
+Route::post('/dashboard/action/edit-berita/update/{id}', [ArticlesController::class, 'updateBerita'])->name('update-berita');

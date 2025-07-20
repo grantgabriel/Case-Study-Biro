@@ -3,6 +3,17 @@ import Pagination from './Pagination';
 import SearchNews from './SearchNews';
 import Categories from './Categories';
 
+function getFirstParagraph(html) {
+    if (!html || typeof html !== "string") return "";
+    const match = html.match(/<p[^>]*>(.*?)<\/p>/i);
+    if (match && match[1]) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = match[1];
+        return tempDiv.innerText;
+    }
+    return "";
+}
+
 const categories = {
     "TPB01": "TPB01 Tanpa Kemiskinan",
     "TPB02": "TPB02 Tanpa Kelaparan",
@@ -45,7 +56,7 @@ function NewsList({ data, dashboard }) {
             <div className={mainContentClass}>
                 <SearchNews toggle={dashboard} />
                 {data.map((article, index) => (
-                    <div className="flex justify-between items-start gap-4 lg:gap-8 lg:bg-background-gray-usu px-2 py-4 rounded-2xl">
+                    <div key={index} className="flex justify-between items-start gap-4 lg:gap-8 lg:bg-background-gray-usu px-2 py-4 rounded-2xl">
                         <div className='relative flex flex-shrink-0 items-center'>
                             <img
                                 src={article.thumbnail}
@@ -67,7 +78,7 @@ function NewsList({ data, dashboard }) {
                             </a>
                             <div className="hidden md:flex flex-nowrap">
                                 <p className="font-normal lg:font-normal text-[10px] text-text-gray-usu lg:text-[14px] line-clamp-1 lg:line-clamp-3 leading-4 lg:leading-[22.4px]">
-                                    Nulla blandit facilisis massa, eget scelerisque massa iaculis eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam sagittis accumsan finibus. In dapibus risus consectetur eros porta suscipit sit amet ut metus. Nulla condimentum imperdiet egestas. Aliquam at placerat ligula, sit amet ultricies nunc. Morbi pulvinar eleifend odio. Mauris tempus, mauris vitae vehicula venenatis, risus nisi condimentum risus, a feugiat urna diam facilisis purus. Nulla commodo, tortor ut interdum lobortis, ligula massa facilisis quam, ut ultrices urna mi ut mi. Aliquam commodo ut nulla ut mollis. Vestibulum rhoncus purus nec mauris dapibus, sit amet malesuada nibh aliquam.
+                                    {getFirstParagraph(article.article)}
                                 </p>
                             </div>
                             <div className='flex items-end h-full font-medium text-[#8FA0B1] text-[6px] lg:text-[10px] leading-4'>
@@ -77,7 +88,15 @@ function NewsList({ data, dashboard }) {
                             </div>
                         </div>
                         <div className={actionButtons}>
-                            <a href={`/dashboard/action/delete-berita/${article.id}`} className="flex justify-center items-center gap-1 bg-red-600 hover:bg-red-700 px-2 py-1 rounded font-medium text-[10px] text-white lg:text-[14px] text-center transition-all">
+                            <a
+                                href={`/dashboard/action/delete-berita/${article.id}`}
+                                className="flex justify-center items-center gap-1 bg-red-600 hover:bg-red-700 px-2 py-1 rounded font-medium text-[10px] text-white lg:text-[14px] text-center transition-all"
+                                onClick={(e) => {
+                                    if (!window.confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
+                                        e.preventDefault();
+                                    }
+                                }}
+                            >
                                 🗑️ Delete
                             </a>
                             <a href={`/dashboard/action/edit-berita/${article.id}`} className="flex justify-center items-center gap-1 bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded font-medium text-[10px] text-white lg:text-[14px] text-center transition-all">

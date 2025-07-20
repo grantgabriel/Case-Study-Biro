@@ -15,9 +15,9 @@ function Banner({ title, publisher, published_date, thumbnail, thumbnail_caption
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col justify-center items-start w-auto md:w-1/2 h-full'>
-                    <div className='flex justify-start items-start w-full'>
-                        <img src={ thumbnail } alt="USU with Gojek" className='w-full h-full object-contain' />
+                <div className='flex flex-col justify-center items-start rounded-lg w-auto md:w-1/2 h-full'>
+                    <div className='flex justify-start items-start rounded-lg w-full'>
+                        <img src={ thumbnail } alt="USU with Gojek" className='rounded-lg w-full h-full object-contain' />
                     </div>
                     <div>
                         <p className="self-start mt-2 text-[6px] lg:text-[8px]">{ thumbnail_caption }</p>
