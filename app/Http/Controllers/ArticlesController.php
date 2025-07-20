@@ -24,6 +24,10 @@ class ArticlesController extends Controller
         return view('activities.berita', compact('articles'));
     }
 
+    public function searchedBerita() {
+
+    }
+
     public function detail($slug) {
         App::setLocale('id');
 

@@ -20,8 +20,20 @@ const categories = [
     "TPB17 Kemitraan untuk Mencapai Tujuan"
 ];
 
-function Categories() {
+function Categories({ onChange }) {
     const [open, setOpen] = useState(true);
+    const [selected, setSelected] = useState([]);
+
+    const handleCheckbox = (e, cat) => {
+        let updated = [...selected];
+        if (e.target.checked) {
+            updated.push(cat.split(' ')[0]);
+        } else {
+            updated = updated.filter(item => item !== cat.split(' ')[0]);
+        }
+        setSelected(updated);
+        onChange(updated);
+    };
 
     return (
         <div className="hidden md:flex flex-col gap-2 lg:gap-4 py-4 md:w-[30%] lg:w-1/4 xl:w-1/5">
@@ -49,6 +61,7 @@ function Categories() {
                         <input
                             type="checkbox"
                             className="bg-white checked:bg-hijau-usu border-[#D9D9D9] border-2 checked:border-hijau-usu rounded-[2px] w-4 h-4 appearance-none shrink-0"
+                            onChange={(e) => handleCheckbox(e, category)}
                         />
                         <span className="font-normal text-[#4A5764] text-[10px] leading-[16px]">
                             {category}

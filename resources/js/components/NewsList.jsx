@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ShortNewsTag from './ShortNewsTag';
 import Pagination from './Pagination';
 import SearchNews from './SearchNews';
@@ -35,6 +36,15 @@ const categories = {
 };
 
 function NewsList({ data, dashboard }) {
+    const [selectedTags, setSelectedTags] = useState([]);
+
+    const filteredData = selectedTags.length > 0
+        ? data.filter(article =>
+            Array.isArray(article.tags) &&
+            article.tags.some(tag => selectedTags.includes(tag))
+        )
+        : data;
+
     const mainContentClass = `
         flex flex-col gap-2 md:pr-8 lg:pr-16
         ${dashboard === "on"
@@ -55,7 +65,7 @@ function NewsList({ data, dashboard }) {
         <div className="flex px-8 lg:px-16 2xl:px-[224px] py-2">
             <div className={mainContentClass}>
                 <SearchNews toggle={dashboard} />
-                {data.map((article, index) => (
+                {filteredData.map((article, index) => (
                     <div key={index} className="flex justify-between items-start gap-4 lg:gap-8 lg:bg-background-gray-usu px-2 py-4 rounded-2xl">
                         <div className='relative flex flex-shrink-0 items-center'>
                             <img
@@ -82,9 +92,7 @@ function NewsList({ data, dashboard }) {
                                 </p>
                             </div>
                             <div className='flex items-end h-full font-medium text-[#8FA0B1] text-[6px] lg:text-[10px] leading-4'>
-                                <p>
-                                    {article.formatted_date}
-                                </p>
+                                <p>{article.formatted_date}</p>
                             </div>
                         </div>
                         <div className={actionButtons}>
@@ -109,7 +117,7 @@ function NewsList({ data, dashboard }) {
             </div>
             {
                 dashboard !== "on" && (
-                    <Categories />
+                    <Categories onChange={setSelectedTags} />
                 )
             }
         </div>
