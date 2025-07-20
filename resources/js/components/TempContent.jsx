@@ -23,31 +23,16 @@ const categories = {
 };
 
 function Content({ article, tag }) {
-    const [elements, setElements] = useState([]);
+    const [paragraphs, setParagraphs] = useState([]);
 
     useEffect(() => {
-        if (typeof article === 'string') {
+        if (typeof article === 'string' && article.includes('<p>')) {
             const div = document.createElement('div');
             div.innerHTML = article;
 
-            const children = Array.from(div.children);
-            const parsed = children.map((child) => {
-                if (child.tagName === 'IMG') {
-                    return {
-                        type: 'image',
-                        src: child.getAttribute('src'),
-                        alt: child.getAttribute('alt') || '',
-                        title: child.getAttribute('title') || ''
-                    };
-                } else {
-                    return {
-                        type: 'html',
-                        content: child.innerHTML
-                    };
-                }
-            });
-
-            setElements(parsed);
+            const pTags = div.querySelectorAll('p');
+            const result = Array.from(pTags).map(p => p.innerHTML.trim());
+            setParagraphs(result);
         }
     }, [article]);
 
@@ -56,29 +41,18 @@ function Content({ article, tag }) {
             <SocialMedia />
             <div className="md:w-[524px] lg:w-[654px]">
                 {/* Paragraf Pertama */}
-                {elements[0] && elements[0].type === 'html' && (
+                {paragraphs[0] && (
                     <div className="px-8 py-2 pt-8 font-light text-[16px] text-hijau-usu lg:text-[20px] leading-[25.6px] lg:leading-8 tracking-normal">
-                        <div dangerouslySetInnerHTML={{ __html: elements[0].content }} />
+                        <div dangerouslySetInnerHTML={{ __html: paragraphs[0] }} />
                     </div>
                 )}
 
-                {/* Elemen Berikutnya */}
-                {elements.slice(1).map((el, index) => {
-                    if (el.type === 'image') {
-                        return (
-                            <div key={index} className="px-8 py-2 w-full font-normal text-[6px] text-text-gray-usu lg:text-[8px]">
-                                <img src={el.src} alt={el.alt} className="w-full h-full object-contain" />
-                                {el.title && <p className="py-2">{el.title}</p>}
-                            </div>
-                        );
-                    }
-
-                    return (
-                        <div key={index} className="px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]">
-                            <div dangerouslySetInnerHTML={{ __html: el.content }} />
-                        </div>
-                    );
-                })}
+                {/* Paragraf Berikutnya */}
+                {paragraphs.slice(1).map((para, index) => (
+                    <div key={index} className="px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]">
+                        <div dangerouslySetInnerHTML={{ __html: para }} />
+                    </div>
+                ))}
 
                 {/* Border */}
                 <div className="mt-4 px-8">
