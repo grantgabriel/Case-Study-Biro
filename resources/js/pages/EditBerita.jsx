@@ -18,7 +18,7 @@ function EditBerita() {
             />
             <NewsForm
                 data={article}
-                edit="true"
+                edit={true}
             />
         </>
     );

@@ -8,7 +8,7 @@ function AddBerita() {
                 title="Add Berita SDGs"
             />
             <NewsForm
-                edit="false"
+                edit={false}
             />
         </>
     );

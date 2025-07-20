@@ -14,7 +14,7 @@ class ArticlesController extends Controller
     public function berita() {
         App::setLocale('id');
 
-        $articles = Article::all();
+        $articles = Article::orderBy('created_at', 'desc')->get();
 
         foreach ($articles as $article) {
             $article->formatted_date = $article->created_at->translatedFormat('l, d F Y');
@@ -31,7 +31,6 @@ class ArticlesController extends Controller
 
         $article->formatted_date = $article->created_at->translatedFormat('l, d F Y');
 
-        // Decode tag JSON ke array
         $article->tags = json_decode($article->tag, true);
 
         return view('activities.detail_berita', compact('article'));
@@ -40,7 +39,7 @@ class ArticlesController extends Controller
     public function dashboard() {
         App::setLocale('id');
 
-        $articles = Article::select('id', 'title', 'slug', 'thumbnail', 'tag', 'article', 'created_at')->get();
+        $articles = Article::select('id', 'title', 'slug', 'thumbnail', 'tag', 'article', 'created_at')->orderBy('created_at', 'desc')->get();
 
         foreach ($articles as $article) {
             $article->formatted_date = $article->created_at->translatedFormat('l, d F Y');
@@ -81,7 +80,7 @@ class ArticlesController extends Controller
             'thumbnail' => $thumbnailPath,
             'thumbnail_caption' => $request->thumbnail_caption,
             'article' => $request->artikel,
-            'tag' => json_encode(explode(',', $request->tag)), // jika input tag pakai koma
+            'tag' => json_encode(explode(',', $request->tag)),
         ]);
 
         return response()->json(['message' => 'Berita berhasil disimpan.'], 200);
@@ -107,5 +106,38 @@ class ArticlesController extends Controller
         $article = Article::find($id);
 
         return view('edit_berita', compact('article'));
+    }
+
+    public function updateBerita(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'thumbnail_caption' => 'nullable|string|max:255',
+            'publisher' => 'required|string|max:255',
+            'artikel' => 'required|string',
+            'tag' => 'nullable|string',
+        ]);
+
+        $article = Article::findOrFail($id);
+
+        $article->title = $request->title;
+        $article->slug = Str::slug($request->title);
+        $article->thumbnail_caption = $request->thumbnail_caption;
+        $article->publisher = $request->publisher;
+        $article->article = $request->artikel;
+        $article->tag = json_encode(explode(',', str_replace(' ', '', $request->tag)));
+        $article->updated_at = now();
+
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/images/thumbnail'), $filename);
+            $article->thumbnail = '/assets/images/thumbnail/' . $filename;
+        }
+
+        $article->save();
+
+        return redirect()->route('dashboard')->with('success', 'Berita berhasil diperbarui!');
     }
 }
