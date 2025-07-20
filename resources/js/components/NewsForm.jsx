@@ -29,7 +29,6 @@ function NewsForm({ data, edit }) {
                 tag: parsedTags || '',
             });
 
-            // Set artikel ke TinyMCE setelah editor ready
             setTimeout(() => {
                 if (editorRef.current && data.article) {
                     editorRef.current.setContent(data.article);

@@ -14,8 +14,11 @@ use App\Http\Controllers\ArticlesController;
 |
 */
 
-// Redirect agar langsung ke login yess
+// Redirect langsung ke login
 Route::redirect('/', '/login');
+
+// Route login
+Route::get('/login');
 
 // Route untuk menampilkan laman beritax
 Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('berita');

@@ -18,7 +18,7 @@ function DetailBerita() {
                 thumbnail_caption={article.thumbnail_caption}
             />
             <Content
-                content={article.article}
+                article={article.article}
                 tag={article.tags}
             />
             <OtherNews />

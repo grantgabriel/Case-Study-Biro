@@ -1,114 +1,74 @@
+import { useEffect, useState } from 'react';
 import SocialMedia from './SocialMedia';
-import demonstrasi from '../assets/demonstrasi-detail-berita.png';
 import NewsTag from './NewsTag';
 
 const categories = {
-    "TPB01": "TPB01 Tanpa Kemiskinan",
-    "TPB02": "TPB02 Tanpa Kelaparan",
-    "TPB03": "TPB03 Kehidupan Sehat dan Sejahtera",
-    "TPB04": "TPB04 Pendidikan Berkualitas",
-    "TPB05": "TPB05 Kesetaraan Gender",
-    "TPB06": "TPB06 Air Bersih dan Sanitasi Layak",
-    "TPB07": "TPB07 Energi Bersih dan Terjangkau",
-    "TPB08": "TPB08 Pekerjaan Layak dan Pertumbuhan Ekonomi",
-    "TPB09": "TPB09 Industri, Inovasi, dan Infrastruktur",
-    "TPB10": "TPB10 Berkurangnya Kesenjangan",
-    "TPB11": "TPB11 Kota dan Pemukiman yang Berkelanjutan",
-    "TPB12": "TPB12 Konsumsi dan Produksi yang Bertanggung Jawab",
-    "TPB13": "TPB13 Penanganan Perubahan Iklim",
-    "TPB14": "TPB14 Ekosistem Lautan",
-    "TPB15": "TPB15 Ekosistem Daratan",
-    "TPB16": "TPB16 Perdamaian, Keadilan, dan Kelembagaan yang Tangguh",
-    "TPB17": "TPB17 Kemitraan untuk Mencapai Tujuan"
+    TPB01: "TPB01 Tanpa Kemiskinan",
+    TPB02: "TPB02 Tanpa Kelaparan",
+    TPB03: "TPB03 Kehidupan Sehat dan Sejahtera",
+    TPB04: "TPB04 Pendidikan Berkualitas",
+    TPB05: "TPB05 Kesetaraan Gender",
+    TPB06: "TPB06 Air Bersih dan Sanitasi Layak",
+    TPB07: "TPB07 Energi Bersih dan Terjangkau",
+    TPB08: "TPB08 Pekerjaan Layak dan Pertumbuhan Ekonomi",
+    TPB09: "TPB09 Industri, Inovasi, dan Infrastruktur",
+    TPB10: "TPB10 Berkurangnya Kesenjangan",
+    TPB11: "TPB11 Kota dan Pemukiman yang Berkelanjutan",
+    TPB12: "TPB12 Konsumsi dan Produksi yang Bertanggung Jawab",
+    TPB13: "TPB13 Penanganan Perubahan Iklim",
+    TPB14: "TPB14 Ekosistem Lautan",
+    TPB15: "TPB15 Ekosistem Daratan",
+    TPB16: "TPB16 Perdamaian, Keadilan, dan Kelembagaan yang Tangguh",
+    TPB17: "TPB17 Kemitraan untuk Mencapai Tujuan"
 };
 
 function Content({ article, tag }) {
+    const [paragraphs, setParagraphs] = useState([]);
+
+    useEffect(() => {
+        if (typeof article === 'string' && article.includes('<p>')) {
+            const div = document.createElement('div');
+            div.innerHTML = article;
+
+            const pTags = div.querySelectorAll('p');
+            const result = Array.from(pTags).map(p => p.innerHTML.trim());
+            setParagraphs(result);
+        }
+    }, [article]);
+
     return (
         <div className="flex md:flex-row flex-col justify-center">
             <SocialMedia />
-            <div className='md:w-[524px] lg:w-[654px]'>
-                {/* Content First Quote */}
-                <div className='px-8 py-2 pt-8 font-light text-[16px] text-hijau-usu lg:text-[20px] leading-[25.6px] lg:leading-8 tracking-normal'>
-                    <p>
-                        “Lorem ipsum dolor sit amet consectetur. Quam sem curabitur pellentesque ultricies. Urna lobortis egestas elit consectetur turpis non in egestas proin. Elementum mi ultrices phasellus neque integer dignissim porttitor tincidunt odio. Elementum sapien egestas donec purus velit praesent. Neque fermentum eget.”
-                    </p>
-                </div>
-                {/* Content Next Quote */}
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur. Sit fames sed suspendisse euismod leo urna. Potenti urna felis non ultricies id cras. Et convallis sem id neque quam hac pulvinar nisl. Blandit scelerisque sit eu netus. Scelerisque varius amet risus donec dignissim cras urna. Quam enim tristique hendrerit scelerisque amet mauris cras pulvinar. Duis vulputate lacus condimentum et. Fermentum vulputate varius fermentum ipsum facilisis venenatis adipiscing sollicitudin massa.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Condimentum lacus nunc porttitor sed viverra neque amet vitae vulputate. Pretium dolor nibh sollicitudin nulla cursus ac suspendisse. Viverra quisque erat purus elementum varius magnis enim. Quis bibendum dictum tincidunt arcu in est libero lorem est.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Aliquet nisl penatibus eu libero lacinia praesent massa nunc est. Gravida praesent egestas scelerisque lacus ultrices tristique massa. Porta fusce lectus massa risus vestibulum. Sit risus maecenas quam enim quis ultrices nunc. Laoreet vitae cras sem orci pellentesque. In facilisi posuere amet donec elit a urna lacus sem. Et varius amet nibh tellus cras. Lectus ac ultricies consequat vel facilisis.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Accumsan neque nunc nec tortor. Massa rutrum pretium morbi morbi. Augue porttitor integer et id in viverra. Proin posuere ut senectus suspendisse a id. Habitasse pharetra aliquet maecenas iaculis vitae justo. Praesent iaculis consectetur suspendisse vestibulum commodo.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Nulla eget fermentum pellentesque fermentum neque arcu nam. Neque mi nulla faucibus risus lorem diam neque varius ut. Nibh adipiscing feugiat nunc elementum. Donec turpis cras enim sit. Duis varius diam adipiscing sed purus vel dignissim sed gravida.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Convallis duis praesent accumsan nisl commodo at eget. Dolor faucibus enim sed nisi ornare. Eget enim vehicula venenatis aliquet dui nibh. At odio amet nunc amet sit. Venenatis dictum dolor sit nunc natoque volutpat. Ultrices quis adipiscing quisque sodales ut.
-                    </p>
-                </div>
-                <div className='px-8 py-2 w-full font-normal text-[6px] text-text-gray-usu lg:text-[8px]'>
-                    <img src={demonstrasi} alt="Demonstrasi foto lorem ipsum" className='w-full h-full object-contain' />
-                    <p className='py-2'>
-                        Demonstrasi foto lorem ipsum
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur. Ut pellentesque sed amet vulputate ac nec porta mauris pharetra. Tristique amet auctor sed nunc sem mattis vulputate et. Mattis augue pulvinar eget sit. Porttitor quis risus facilisis velit habitasse. Cursus fames morbi odio vitae.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Tincidunt commodo dolor lacinia senectus malesuada risus ultricies. Tortor dictum ligula enim morbi pretium sit. Amet lectus sodales sed feugiat pretium proin felis massa. Enim amet et placerat sed. Volutpat faucibus sagittis sed non fermentum. Ipsum id massa gravida hendrerit fermentum consectetur mauris adipiscing justo. Orci nec vitae donec libero amet. Lorem id vel nec enim cum.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Ut enim elementum vivamus donec. Porttitor ultrices sed tristique ullamcorper iaculis nam. Fringilla vulputate sed ac tempus vel eget integer. Adipiscing sit aliquam mattis ipsum condimentum vivamus volutpat netus. Scelerisque convallis tempus vestibulum felis in. Diam dictum morbi malesuada pharetra viverra augue urna duis. Risus erat placerat tortor pretium metus. Vel amet in volutpat fermentum non. Ac nunc cursus at vitae rhoncus.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Id blandit massa lectus enim libero phasellus ultrices. Etiam elit vel aliquam nulla massa pretium aliquam mauris. Ligula id malesuada dignissim ipsum cursus. Neque cursus risus porttitor consectetur felis volutpat. Id dignissim tempor vitae tincidunt in. Praesent pulvinar tellus commodo nisi orci ut odio. Tempus sit ullamcorper est in scelerisque. Mattis arcu egestas nunc aenean. Tortor ac consectetur morbi mattis eget habitasse sed convallis. Integer platea ullamcorper elit faucibus turpis morbi tristique purus massa. Ac mauris egestas nibh cras. Porta nisl orci non urna in a laoreet.
-                    </p>
-                </div>
-                <div className='px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]'>
-                    <p>
-                        Sed in felis neque massa. Elit sit dis augue nunc turpis gravida purus metus quis. In est duis placerat metus a nisl laoreet ac. Lectus in viverra est id malesuada fringilla leo. Cursus mollis nulla tincidunt varius. Euismod tincidunt ut in elementum feugiat. Purus mi sagittis id ipsum pharetra. In gravida volutpat ornare gravida vel dignissim lobortis quis. Scelerisque quam eget a faucibus cras. Nunc et eget tempor id cursus.
-                    </p>
-                </div>
-                <div className='mt-4 px-8'>
-                    <div className='border-[#FAFAFA] border-[2px]'>
+            <div className="md:w-[524px] lg:w-[654px]">
+                {/* Paragraf Pertama */}
+                {paragraphs[0] && (
+                    <div className="px-8 py-2 pt-8 font-light text-[16px] text-hijau-usu lg:text-[20px] leading-[25.6px] lg:leading-8 tracking-normal">
+                        <div dangerouslySetInnerHTML={{ __html: paragraphs[0] }} />
                     </div>
-                </div>
-                <div className='flex flex-wrap gap-1'>
-                    {Array.isArray(tag) && tag.map((t, index) => {
-                        const label = categories[t] || t;
-                        return <NewsTag key={index} label={label} />;
-                    })}
-                </div>
-            </div>
-            <div className='px-8 md:px-16'>
+                )}
 
+                {/* Paragraf Berikutnya */}
+                {paragraphs.slice(1).map((para, index) => (
+                    <div key={index} className="px-8 py-2 font-normal text-[12px] text-hitam-usu lg:text-[14px] leading-[19.2px] lg:leading-[22.4px]">
+                        <div dangerouslySetInnerHTML={{ __html: para }} />
+                    </div>
+                ))}
+
+                {/* Border */}
+                <div className="mt-4 px-8">
+                    <div className="border-[#FAFAFA] border-[2px]" />
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1 px-8 py-2">
+                    {Array.isArray(tag) &&
+                        tag.map((t, index) => {
+                            const label = categories[t] || t;
+                            return <NewsTag key={index} label={label} />;
+                        })}
+                </div>
             </div>
+            <div className="px-8 md:px-16"></div>
         </div>
     );
 }
