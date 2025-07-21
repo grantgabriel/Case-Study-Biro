@@ -11,10 +11,19 @@ use Carbon\Carbon;
 
 class ArticlesController extends Controller
 {
-    public function berita() {
+    public function berita(Request $request)
+    {
         App::setLocale('id');
 
-        $articles = Article::orderBy('created_at', 'desc')->get();
+        $search = $request->query('search');
+
+        $query = Article::query();
+
+        if ($search) {
+            $query->where('title', 'like', '%' . $search . '%');
+        }
+
+        $articles = $query->orderByDesc('created_at')->get();
 
         foreach ($articles as $article) {
             $article->formatted_date = $article->created_at->translatedFormat('l, d F Y');

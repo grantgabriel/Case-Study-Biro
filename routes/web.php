@@ -22,7 +22,6 @@ Route::get('/login');
 
 // Route untuk menampilkan laman beritax
 Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('berita');
-Route::get('/activities/berita?search={slug}', [ArticlesController::class, 'searchedBerita'])->name('search-berita');
 
 // Route untuk menampilkan laman detail berita
 Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'detail'])->name('detail-berita');
