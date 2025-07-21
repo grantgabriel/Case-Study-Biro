@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,12 @@ use App\Http\Controllers\ArticlesController;
 
 // Redirect langsung ke login
 Route::redirect('/', '/login');
-
 // Route login
-Route::get('/login');
+Route::get('/login', [UsersController::class, 'index'])->name('login');
+Route::post('/login', [UsersController::class, 'login'])->name('verify');
 
 // Route untuk menampilkan laman beritax
 Route::get('/activities/berita', [ArticlesController::class, 'berita'])->name('berita');
-
 // Route untuk menampilkan laman detail berita
 Route::get('/activities/detail-berita/{slug}', [ArticlesController::class, 'detail'])->name('detail-berita');
 
