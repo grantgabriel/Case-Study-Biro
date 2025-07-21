@@ -33,10 +33,6 @@ class ArticlesController extends Controller
         return view('activities.berita', compact('articles'));
     }
 
-    public function searchedBerita() {
-
-    }
-
     public function detail($slug) {
         App::setLocale('id');
 
@@ -49,10 +45,20 @@ class ArticlesController extends Controller
         return view('activities.detail_berita', compact('article'));
     }
 
-    public function dashboard() {
+    public function dashboard(Request $request) {
         App::setLocale('id');
 
-        $articles = Article::select('id', 'title', 'slug', 'thumbnail', 'tag', 'article', 'created_at')->orderBy('created_at', 'desc')->get();
+        $search = $request->query('search');
+
+        $query = Article::query();
+
+        if ($search) {
+            $query->where('title', 'like', '%' . $search . '%');
+        }
+
+        $articles = $query->select('id', 'title', 'slug', 'thumbnail', 'tag', 'article', 'created_at')
+                        ->orderBy('created_at', 'desc')
+                        ->get();
 
         foreach ($articles as $article) {
             $article->formatted_date = $article->created_at->translatedFormat('l, d F Y');
@@ -62,6 +68,7 @@ class ArticlesController extends Controller
 
         return view('dashboard', compact('articles'));
     }
+
 
     public function addBerita() {
         return view('add_berita');
